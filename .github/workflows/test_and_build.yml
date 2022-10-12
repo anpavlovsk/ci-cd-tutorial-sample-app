@@ -103,24 +103,25 @@ jobs:
           tag_with_sha: true # Info: https://github.com/docker/build-push-action/tree/releases/v1#tag_with_sha
           tags: latest
 
-  # slack-workflow-status:
-  #   if: always()
-  #   name: Post Workflow Status To Slack
-  #   needs:
-  #     - build
-  #     - push_to_registry
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Slack Workflow Notification
-  #       uses: Gamesight/slack-workflow-status@master
-  #       with:
-  #         # Required Input
-  #         repo_token: ${{secrets.GITHUB_TOKEN}}
-  #         slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
-  #         # Optional Input
-  #         channel: '##build-and-test'
-  #         include_commit_message: 'true'
-  #         name: 'Workflow Bot'
-  #         icon_emoji: ':github-octocat:'
-  #         icon_url: 'https://avatars0.githubusercontent.com/u/1701164?s=96&v=5'
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - build
+      - push_to_registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+          # Optional Input
+          channel: '##build-and-test'
+          include_commit_message: 'true'
+          name: 'Workflow Bot'
+          icon_emoji: ':github-octocat:'
+          icon_url: 'https://avatars0.githubusercontent.com/u/1701164?s=96&v=5'
+          continue-on-error: true
 

@@ -41,7 +41,8 @@ http://productionenv-env.eba-j3j3u7ux.us-east-1.elasticbeanstalk.com/
 Image is available here 
 https://hub.docker.com/repository/docker/ksusha/dockerhub-actions-eks
 - Project is scanning with SonarCloud (https://sonarcloud.io/)
-Link to the scan results is available here 
+Link to the scan results is available here
+https://sonarcloud.io/component_measures?id=application-ksu&branch=main
 https://sonarcloud.io/project/overview?id=application-ksu
 - Status response messages are getting to Slack channels
 

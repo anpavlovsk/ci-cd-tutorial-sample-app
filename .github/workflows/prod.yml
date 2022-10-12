@@ -1,0 +1,77 @@
+name: Deploy to Prod Environment
+
+on:
+  workflow_run:
+    workflows: ["Deploy to Dev Environment"]
+    types:
+      - completed
+
+  workflow_dispatch:
+  
+# Requires manual approval before
+# Steps represent a sequence of tasks that will be executed as part of the job
+jobs:
+
+  deploy-prod:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: LygutaKsusha
+          minimum-approvals: 1
+          issue-title: "Deploying to Prod from Staging"
+
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Create ZIP deployment package
+        run: zip -r deploy_package.zip ./ -x *.git*
+
+      - name: Get timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+
+      - name: Run string replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: '-'
+          flags: 'g'
+
+      - name: Beanstalk Deploy for Prod app
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          application_name: ${{secrets.EBS_APP_PROD}}
+          environment_name: ${{secrets.EBS_ENV_PROD}}
+          region: us-east-1
+          version_label: "web-app-${{ steps.format-time.outputs.replaced }}"
+          deployment_package: deploy_package.zip
+
+      - name: Deployed!
+        run: echo App deployed to PROD ELB Application
+
+  # slack-workflow-status:
+  #   if: always()
+  #   name: Post Workflow Status To Slack
+  #   needs:
+  #     - deploy-prod
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Slack Workflow Notification
+  #       uses: Gamesight/slack-workflow-status@master
+  #       with:
+  #         # Required Input
+  #         repo_token: ${{secrets.GITHUB_TOKEN}}
+  #         slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
+  #         # Optional Input
+  #         channel: '##deploy-to-prod'
+  #         include_commit_message: 'true'
+  #         name: 'Workflow Bot'
+  #         icon_emoji: ':github-octocat:'
+  #         icon_url: 'https://avatars0.githubusercontent.com/u/1701164?s=96&v=5'

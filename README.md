@@ -44,5 +44,5 @@ Link to the scan results is available here
 https://sonarcloud.io/project/overview?id=application-ksu
 ![Sonar](download.png)
 
-- Status response messages should go to Slack channels (temporarily disabled due to the lack of slack permissions set)
+- Status response messages should go to Slack channels (temporarily commented due to the lack of slack permissions set so job will move on without distructions)
 

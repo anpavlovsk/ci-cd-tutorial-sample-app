@@ -1,5 +1,5 @@
-[![Test and build Docker Image](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml/badge.svg?branch=master)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml)
-[![Deploy to Dev Environment](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml/badge.svg?branch=master)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml)
+[![Test and build Docker Image](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml)
+[![Deploy to Dev Environment](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml)
 [![Deploy to Prod Environment](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/prod.yml/badge.svg)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/prod.yml)
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=application-ksu)](https://sonarcloud.io/summary/new_code?id=application-ksu)
 
@@ -22,104 +22,26 @@ Also:
 
 Related article: https://medium.com/rockedscience/docker-ci-cd-pipeline-with-github-actions-6d4cd1731030
 
-## Requirements
-
- * `Python 3.8`
- * `Pip`
- * `virtualenv`, or `conda`, or `miniconda`
-
-The `psycopg2` package does require `libpq-dev` and `gcc`.
-To install them (with `apt`), run:
-
-```sh
-$ sudo apt-get install libpq-dev gcc
-```
-
 ## Installation
 
-With `virtualenv`:
+How set up and run application you may find with the initial link of the root repo 
+https://github.com/edonosotti/ci-cd-tutorial-sample-app
 
-```sh
-$ python -m venv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-```
+## CI/CD Workflow
+This repo shows basic set up of the CI/CD Workflow with Github Actions
 
-With `conda` or `miniconda`:
+## Features:
+- Reusable action workflows, that can be called from previous one
+- Deploy to Prod workflow also requires manual approval in addition, after all previous checks and builds were completed and passed
+- The application is deployed to AWS using ElastickBeanstalk service
+Url links for Dev and Prod apps basic functionality response are available here:
+http://test-environment.eba-kupdirkf.us-east-1.elasticbeanstalk.com/
+http://productionenv-env.eba-j3j3u7ux.us-east-1.elasticbeanstalk.com/
+- Application's built versions are stored as artifacts in the Docker Hub
+Image is available here 
+https://hub.docker.com/repository/docker/ksusha/dockerhub-actions-eks
+- Project is scanning with SonarCloud (https://sonarcloud.io/)
+Link to the scan results is available here 
+https://sonarcloud.io/project/overview?id=application-ksu
+- Status response messages are getting to Slack channels
 
-```sh
-$ conda env create -n ci-cd-tutorial-sample-app python=3.8
-$ source activate ci-cd-tutorial-sample-app
-$ pip install -r requirements.txt
-```
-
-Optional: set the `DATABASE_URL` environment variable to a valid SQLAlchemy connection string. Otherwise, a local SQLite database will be created.
-
-Initalize and seed the database:
-
-```sh
-$ flask db upgrade
-$ python seed.py
-```
-
-## Running tests
-
-Run:
-
-```sh
-$ python -m unittest discover
-```
-
-## Running the application
-
-### Running locally
-
-Run the application using the built-in Flask server:
-
-```sh
-$ flask run
-```
-
-### Running on a production server
-
-Run the application using `gunicorn`:
-
-```sh
-$ pip install -r requirements-server.txt
-$ gunicorn app:app
-```
-
-To set the listening address and port, run:
-
-```
-$ gunicorn app:app -b 0.0.0.0:8000
-```
-
-## Running on Docker
-
-Run:
-
-```
-$ docker build -t ci-cd-tutorial-sample-app:latest .
-$ docker run -d -p 8000:8000 ci-cd-tutorial-sample-app:latest
-```
-
-## Deploying to Heroku
-
-Run:
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku run flask db upgrade
-$ heroku run python seed.py
-$ heroku open
-```
-
-or use the automated deploy feature:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
- - [Python on Heroku](https://devcenter.heroku.com/categories/python)

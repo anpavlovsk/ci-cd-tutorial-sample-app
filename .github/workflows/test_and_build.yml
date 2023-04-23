@@ -99,7 +99,7 @@ jobs:
           password: ${{ secrets.GMAIL_PASSWORD }}
           subject: 'Build ${{ job.status }}: ${{ github.repository }}'
           body: 'The ${{ job.status }} build of ${{ github.repository }} on branch ${{ github.ref }} by ${{ github.actor }}.'
-          to: 'youremail@gmail.com'
+          to: 'anpavlovsk@gmail.com'
           from: 'GitHub Actions <github-actions@github.com>'
 
 

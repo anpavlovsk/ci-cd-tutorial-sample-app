@@ -1,7 +1,6 @@
-[![Test and build Docker Image](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml)
-[![Deploy to Dev Environment](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml)
-[![Deploy to Prod Environment](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/prod.yml/badge.svg)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/prod.yml)
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=application-ksu)](https://sonarcloud.io/summary/new_code?id=application-ksu)
+[![Test and build Docker Image](https://github.com/anpavlovsk/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/test_and_build.yml)
+[![Deploy to Dev Environment](https://github.com/anpavlovsk/ci-cd-tutorial-sample-app/actions/workflows/dev.yml/badge.svg?branch=main)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/dev.yml)
+[![Deploy to Prod Environment](https://github.com/anpavlovsk/ci-cd-tutorial-sample-app/actions/workflows/prod.yml/badge.svg)](https://github.com/LygutaKsusha/ci-cd-tutorial-sample-app/actions/workflows/prod.yml)
 
 # CD/CI Tutorial Sample Application
 

@@ -9,7 +9,8 @@ WORKDIR /sample-app
 
 COPY . /sample-app/
 
-RUN pip3 install -r requirements.txt && \
+RUN pip3 install -U pip && \
+    pip3 install Flask==2.0.2 && \
     pip3 install -r requirements-server.txt
 
 ENV LC_ALL="C.UTF-8"
